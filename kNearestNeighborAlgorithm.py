@@ -64,7 +64,7 @@ def findNearestNeighbors(observation, dataset, k):
     distances = []
 
     for i in range(len(dataset)):
-        d = calculateDistance(observation, dataset[i])
+        d = calculateDistance(observation[1:], dataset[i,1:])
         distances.append((dataset[i], d))
 
     distances.sort(key=operator.itemgetter(1))
@@ -149,7 +149,7 @@ def main():
     ma = []
 
     #Run algorithm and calculate accuracies for selected range of k's
-    for x in range(3, int(math.sqrt(len(df)))):
+    for x in range(1, int(math.sqrt(len(df)))):
         predictions = []
         for i in range(len(testingdata)):
             neighbors = findNearestNeighbors(testingdata[i], trainingdata, x)
@@ -158,11 +158,12 @@ def main():
 
         ma.append(accuracy(testingdata, predictions))
 
+    #Print out accuracies for each k
     for i in range(len(ma)):
-        print('Accuracy for k = ', i+3, ':', ma[i])
+        print('Accuracy for k = ', 1+i, ':', ma[i])
 
     max_value = max(ma)
-    max_index = 3 + ma.index(max_value)
+    max_index = 1 + ma.index(max_value)
     print('Maximum accuracy attained at k =', max_index, 'with accuracy of:',  max_value, '%')
 
 
