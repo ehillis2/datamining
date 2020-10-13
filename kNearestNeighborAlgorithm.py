@@ -135,7 +135,8 @@ def main():
         df = pd.read_csv(filename)
     except:
         #df = pd.read_csv('/Users/ethanhillis/Desktop/Data Mining/BreastCancerData.csv')
-        print('No input file')
+        print('Error: No input file!')
+        return
 
     del df['id']
     trainingdata = []
