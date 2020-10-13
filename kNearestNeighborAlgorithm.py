@@ -156,7 +156,7 @@ def main():
             result = predict(neighbors, x)
             predictions.append(result)
 
-        ma.append(accuracy(testingdata, predictions))
+        ma.append(round(accuracy(testingdata, predictions),5))
 
     #Print out accuracies for each k
     for i in range(len(ma)):
