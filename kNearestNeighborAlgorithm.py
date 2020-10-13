@@ -24,6 +24,8 @@ Returns:
 """
 def splitData(dataset, split, trainingdata, testingdata):
 
+    split = 1 - split
+
     for i in range(len(dataset)):
         if(random.random() < split):
             testingdata.extend([dataset.iloc[i]])
@@ -128,8 +130,13 @@ Returns:
 """
 def main():
 
-    filename = sys.argv[-1]
-    print('Randomly splitting data into training data and testing data...')
+    filename = sys.argv[-2]
+    split = float(sys.argv[-1])
+
+    if split >= 1 or split <= 0:
+        print('Error: Invalid split percentage. Input a decimal greater than 0 and less than 1.')
+        return
+
 
     try:
         df = pd.read_csv(filename)
@@ -138,10 +145,11 @@ def main():
         print('Error: No input file!')
         return
 
+    print('Randomly splitting data into training data and testing data...')
     del df['id']
     trainingdata = []
     testingdata = []
-    splitData(df, .20, trainingdata, testingdata)
+    splitData(df, split, trainingdata, testingdata)
     trainingdata = np.array(trainingdata)
     testingdata = np.array(testingdata)
     print('Number of observations in training data:', len(trainingdata))
