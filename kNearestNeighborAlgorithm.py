@@ -137,11 +137,9 @@ def main():
         print('Error: Invalid split percentage. Input a decimal greater than 0 and less than 1.')
         return
 
-
     try:
         df = pd.read_csv(filename)
     except:
-        #df = pd.read_csv('/Users/ethanhillis/Desktop/Data Mining/BreastCancerData.csv')
         print('Error: No input file!')
         return
 
