@@ -19,25 +19,9 @@ import csv
 import time
 
 
+
 option = str(sys.argv[1])
-print(sys.argv[1])
-"""
-processing.final_validation = np.array(processing.final_validation)
 
-FV_features = []
-FV_labels = []
-
-FV_features, FV_labels = processing.createFeatures_Labels(
-    processing.final_validation)
-
-FV_features_data = None
-FV_labels_data = None
-
-FV_features_data, FV_labels_data = processing.convertToDataFrame(
-    FV_features, FV_labels, processing.column_titles)
-
-transformed_FV = processing.linear_pca.transform(FV_features_data)
-"""
 
 DT_final_predictions = []
 
@@ -435,65 +419,74 @@ svm_result = SVMTest(SVM.svm_poly, transformed_FV)
 knn_result = kNearestNeighborTest(kNN.knn, transformed_FV)
 nn_result = NeuralNetworkTest(NN.nn, transformed_FV)
 """
+option = str(sys.argv[1])
+
+if(option == 'yes' or option == 'no' or option == 'both'):
+
+    print()
+    print()
+    print('----FINAL PERFORMANCE METRICS----')
+    print()
+    print()
 
 
-print()
-print()
-print('----FINAL PERFORMANCE METRICS----')
-print()
-print()
+    kNN_accuracy, kNN_precision, kNN_recall = kNearestNeighborTest(option)
+
+    DT_accuracy, DT_precision, DT_recall = DecisionTreeTest(option)
+
+    RF_accuracy, RF_precision, RF_recall = RandomForestTest(option)
+
+    NN_accuracy, NN_precision, NN_recall = NeuralNetworkTest(option)
+
+    SVM_GAUS_accuracy, SVM_GAUS_precision, SVM_GAUS_recall = GaussianSVMTest(
+        option)
+    SVM_POLY_accuracy, SVM_POLY_precision, SVM_POLY_recall = PolynomialSVMTest(
+        option)
 
 
-kNN_accuracy, kNN_precision, kNN_recall = kNearestNeighborTest(option)
+    def findMaxMetric(metric_list):
 
-DT_accuracy, DT_precision, DT_recall = DecisionTreeTest(option)
+        m_string = None
+        m_int = max(metric_list)
 
-RF_accuracy, RF_precision, RF_recall = RandomForestTest(option)
+        if(m_int == metric_list[0]):
+            m_string = 'kNEARESTNEIGHBOR'
+        elif(m_int == metric_list[1]):
+            m_string = 'DECISION TREE'
+        elif(m_int == metric_list[2]):
+            m_string = 'RANDOM FOREST'
+        elif(m_int == metric_list[3]):
+            m_string = 'GAUSSIAN SVM'
+        elif(m_int == metric_list[4]):
+            m_string = 'POLYNOMIAL SVM'
+        elif(m_int == metric_list[5]):
+            m_string = 'NEURAL NETWORK'
 
-NN_accuracy, NN_precision, NN_recall = NeuralNetworkTest(option)
-
-SVM_GAUS_accuracy, SVM_GAUS_precision, SVM_GAUS_recall = GaussianSVMTest(
-    option)
-SVM_POLY_accuracy, SVM_POLY_precision, SVM_POLY_recall = PolynomialSVMTest(
-    option)
-
-
-def findMaxMetric(metric_list):
-
-    m_string = None
-    m_int = max(metric_list)
-
-    if(m_int == metric_list[0]):
-        m_string = 'kNEARESTNEIGHBOR'
-    elif(m_int == metric_list[1]):
-        m_string = 'DECISION TREE'
-    elif(m_int == metric_list[2]):
-        m_string = 'RANDOM FOREST'
-    elif(m_int == metric_list[3]):
-        m_string = 'GAUSSIAN SVM'
-    elif(m_int == metric_list[4]):
-        m_string = 'POLYNOMIAL SVM'
-    elif(m_int == metric_list[5]):
-        m_string = 'NEURAL NETWORK'
-
-    return m_int, m_string
+        return m_int, m_string
 
 
-accuracy_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
-                 SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
-precision_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
-                  SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
-recall_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
-               SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
+    accuracy_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
+                     SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
+    precision_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
+                      SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
+    recall_list = [kNN_accuracy, DT_accuracy, RF_accuracy,
+                   SVM_GAUS_accuracy, SVM_POLY_accuracy, NN_accuracy]
 
 
-max_accuracy, max_accuracy_string = findMaxMetric(accuracy_list)
-max_precision, max_precision_string = findMaxMetric(precision_list)
-max_recall, max_recall_string = findMaxMetric(recall_list)
+    max_accuracy, max_accuracy_string = findMaxMetric(accuracy_list)
+    max_precision, max_precision_string = findMaxMetric(precision_list)
+    max_recall, max_recall_string = findMaxMetric(recall_list)
 
-print('MAXIMUM ACCURACY ATTAINED BY', max_accuracy_string,
-      'WITH ACCURACY OF', 100 * max_accuracy, '%')
-print('MAXIMUM PRECISION ATTAINED BY', max_precision_string,
-      'WITH PRECISION OF', 100 * max_precision, '%')
-print('MAXIMUM RECALL ATTAINED BY', max_recall_string,
-      'WITH RECALL OF', 100 * max_recall, '%')
+    print('MAXIMUM ACCURACY ATTAINED BY', max_accuracy_string,
+          'WITH ACCURACY OF', 100 * max_accuracy, '%')
+    print('MAXIMUM PRECISION ATTAINED BY', max_precision_string,
+          'WITH PRECISION OF', 100 * max_precision, '%')
+    print('MAXIMUM RECALL ATTAINED BY', max_recall_string,
+          'WITH RECALL OF', 100 * max_recall, '%')
+else:
+
+    print('Please input valid arguments: python3 BreastCancerData.csv <pca_optioin>')
+    print("The options for <pca_option> should be 'yes', 'no', or 'both'")
+    print("The 'yes' option trains the models on a PCA reduced dataset")
+    print("The 'no' option trains the models on the standard non-PCA reduced dataset")
+    print("The 'both' option trains the models on both the PCA reduced dataset and the standard non-PCA reduced dataset")
