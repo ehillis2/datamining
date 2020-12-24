@@ -485,7 +485,7 @@ if(option == 'yes' or option == 'no' or option == 'both'):
           'WITH RECALL OF', 100 * max_recall, '%')
 else:
 
-    print('Please input valid arguments: python3 BreastCancerData.csv <pca_optioin>')
+    print('Please input valid arguments: python3 FinalValidationTest.py <pca_optioin>')
     print("The options for <pca_option> should be 'yes', 'no', or 'both'")
     print("The 'yes' option trains the models on a PCA reduced dataset")
     print("The 'no' option trains the models on the standard non-PCA reduced dataset")
