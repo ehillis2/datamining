@@ -107,6 +107,7 @@ def mainRandomForestImplementation(randomforestmodel, linPCA, training_dataframe
 
 def RandomForestSimulation(randomforestmodel, linPCA, training_dataframe, pca_option):
 
+    print()
     if(pca_option == 'both'):
 
         number = 20

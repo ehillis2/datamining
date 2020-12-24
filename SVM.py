@@ -102,6 +102,7 @@ def mainSVMImplementation(svmmodel, linPCA, training_dataframe, pca_option):
 
 def SVMSimulation(svmmodel, linPCA, training_dataframe, pca_option):
 
+    print()
     if(svmmodel.kernel == 'rbf'):
 
         if(pca_option == 'both'):

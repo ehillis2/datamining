@@ -102,6 +102,7 @@ def mainNeuralNetworkImplementation(nnmodel, linPCA, training_dataframe, pca_opt
 
 def NeuralNetworkSimulation(nnmodel, linPCA, training_dataframe, pca_option):
 
+    print()
     if(pca_option == 'both'):
 
         start = time.time()

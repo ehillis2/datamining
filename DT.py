@@ -109,6 +109,7 @@ def mainDecisionTreeImplementation(decisiontreemodel, linPCA, training_dataframe
 
 def DecisionTreeSimulation(decisiontreemodel, linPCA, training_dataframe, pca_option):
 
+    print()
     if(pca_option == 'both'):
         number = 20
         print('Simulating decision tree model...')

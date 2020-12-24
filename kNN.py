@@ -102,6 +102,7 @@ def mainkNearestNeighborImplementation(knnmodel, linPCA, training_dataframe, pca
 
 def kNearestNeighborSimulation(knnmodel, linPCA, training_dataframe, pca_option):
 
+    print()
     if(pca_option == 'both'):
 
         number = 20
